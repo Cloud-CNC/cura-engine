@@ -67,7 +67,7 @@ jobs:
       # Verify output
       - name: Verify output
         run: |
-          if [ "${{ hashFiles('./benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
+          if [ "${{ hashFiles('./data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
             exit 1
           fi
 
