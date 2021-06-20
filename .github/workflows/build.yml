@@ -10,7 +10,7 @@ on:
 
 env:
   # SHA256 of Benchy GCODE for an Ultimaker 2
-  BENCHY_HASH: f4654841badfc91a22afd35593ef6024203c0ae3cefa119bd119711eecc3c737
+  BENCHY_HASH: bcfd7c9e7a199a1ddc23ef1b45130c19cb49997f72d299c8e1a308c155bdabff
 
 jobs:
   # Build and test Cura Engine
