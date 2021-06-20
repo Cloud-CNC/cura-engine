@@ -62,11 +62,10 @@ jobs:
 
       # Slice Benchy
       - name: Slice Benchy
-        run: wasmer ./cura-engine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
+        run: wasmer ./cura-engine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -v -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
 
       # Verify output
       - name: Verify output
-        working-directory: data
         run: |
           if [ "${{ hashFiles('./benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
             exit 1
@@ -77,4 +76,4 @@ jobs:
         uses: actions/cache@v2
         with:
           key: build-production-${{ hashFiles('./cura-engine.wasm') }}
-          path: ./cura-engine.wasm
+          path: ./cura-engine.wasm
