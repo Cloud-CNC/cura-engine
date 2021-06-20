@@ -1,0 +1,20 @@
+[package]
+name = "cloud-cnc-bot/cura-engine"
+version = "0.0.1-alpha.1"
+description = "Ultimaker Cura Engine for Web Assembly"
+license = "AGPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/Cloud-CNC/cura-engine.git"
+homepage = "https://cloud-cnc.github.io"
+
+[[module]]
+name = "cura-engine"
+source = "cura-engine.wasm"
+abi = "wasi"
+
+[module.interfaces]
+wasi = "0.0.0-unstable"
+
+[[command]]
+name = "cura-engine"
+module = "cura-engine"

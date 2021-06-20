@@ -33,12 +33,12 @@ std::string transliterate(const std::string& text)
     return stream.str();
 }
 
-GCodeExport::GCodeExport()
-: output_stream(&std::cout)
-, currentPosition(0,0,MM2INT(20))
-, layer_nr(0)
-, relative_extrusion(false)
+GCodeExport::GCodeExport(): currentPosition(0,0,MM2INT(20)), layer_nr(0), relative_extrusion(false)
 {
+    //Manually initialize standard I/O (Fix for https://github.com/WebAssembly/wasi-sdk/issues/153)
+    std::ios_base::Init init;
+    output_stream = &std::cout;
+
     *output_stream << std::fixed;
 
     current_e_value = 0;

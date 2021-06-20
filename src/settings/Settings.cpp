@@ -189,16 +189,10 @@ template<> FlowTempGraph Settings::get<FlowTempGraph>(const std::string& key) co
         }
         std::string first_substring = *match_iter++;
         std::string second_substring = *match_iter++;
-        try
-        {
-            double first = std::stod(first_substring);
-            double second = std::stod(second_substring);
-            result.data.emplace_back(first, second);
-        }
-        catch (const std::invalid_argument& e)
-        {
-            logError("Couldn't read 2D graph element [%s,%s] in setting '%s'. Ignored.\n", first_substring.c_str(), second_substring.c_str(), key.c_str());
-        }
+
+        double first = std::stod(first_substring);
+        double second = std::stod(second_substring);
+        result.data.emplace_back(first, second);
     }
 
     return result;
@@ -565,14 +559,8 @@ template<> std::vector<double> Settings::get<std::vector<double>>(const std::str
         while (match_iter != rend)
         {
             std::string value = *match_iter++;
-            try
-            {
-                result.push_back(std::stod(value));
-            }
-            catch (const std::invalid_argument& e)
-            {
-                logError("Couldn't read floating point value (%s) in setting '%s'. Ignored.\n", value.c_str(), key.c_str());
-            }
+
+            result.push_back(std::stod(value));
         }
     }
     return result;

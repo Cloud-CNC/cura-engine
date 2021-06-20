@@ -51,6 +51,11 @@ endif()
 
 set(CMAKE_CXX_STANDARD 11)
 
+# Disable exceptions (Fix for https://github.com/WebAssembly/wasi-sdk#notable-limitations)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+endif()
+
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
@@ -101,7 +106,7 @@ if (ENABLE_MORE_COMPILER_OPTIMIZATION_FLAGS AND NOT (CMAKE_BUILD_TYPE_UPPER MATC
     if (MSVC)
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} /fp:fast")
     else()
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Ofast -funroll-loops")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -funroll-loops")
     endif()
 endif ()
 
@@ -215,7 +220,6 @@ set(engine_SRCS # Except main.cpp.
     src/utils/polygon.cpp
     src/utils/ProximityPointLink.cpp
     src/utils/SVG.cpp
-    src/utils/socket.cpp
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp.

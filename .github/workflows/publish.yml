@@ -1,0 +1,48 @@
+# Automated publishing for Cura Engine
+
+name: Publish
+
+on:
+  # Run when a new release is created
+  release:
+    types:
+      - published
+
+jobs:
+  # Publish Cura Engine to WAPM
+  publish:
+    name: Publish Cura Engine to WAPM
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          path: source
+
+      # Setup Wasmer
+      - name: Setup Wasmer
+        uses: cloud-cnc/setup-wasmer@v1
+
+      # Restore the build from the cache
+      - name: Restore the build
+        uses: actions/cache@v2
+        with:
+          key: build-production-
+          restore-keys: build-production-
+          path: ./cura-engine.wasm
+
+      # Add package assets to a dedicated directory
+      - name: Add package assets
+        run: |
+          mkdir package
+          mv ./cura-engine.wasm package
+          mv ./source/README.md package
+          mv ./source/wapm.toml package
+
+      # Publish to WAPM
+      - name: Publish to WAPM
+        uses: cloud-cnc/wapm-publish@v1
+        with:
+          username: ${{ secrets.WAPM_USERNAME }}
+          password: ${{ secrets.WAPM_PASSWORD }}

@@ -103,7 +103,7 @@ void Application::printHelp() const
 {
     logAlways("\n");
     logAlways("usage:\n");
-    logAlways("CuraEngine help\n");
+    logAlways("CuraEngine for WASM help\n");
     logAlways("\tShow this help message\n");
     logAlways("\n");
 #ifdef ARCUS
@@ -139,7 +139,7 @@ void Application::printHelp() const
 void Application::printLicense() const
 {
     logAlways("\n");
-    logAlways("Cura_SteamEngine version %s\n", VERSION);
+    logAlways("Cura_SteamEngine for WASM version %s\n", VERSION);
     logAlways("Copyright (C) 2021 Ultimaker\n");
     logAlways("\n");
     logAlways("This program is free software: you can redistribute it and/or modify\n");

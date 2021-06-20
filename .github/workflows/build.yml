@@ -1,0 +1,80 @@
+# Automated builds for Cura Engine
+
+name: Build
+
+on:
+  # Run when pushed
+  push:
+    branches:
+      - main
+
+env:
+  # SHA256 of Benchy GCODE for an Ultimaker 2
+  BENCHY_HASH: f4654841badfc91a22afd35593ef6024203c0ae3cefa119bd119711eecc3c737
+
+jobs:
+  # Build and test Cura Engine
+  build:
+    name: Build Cura Engine
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      # Setup Wasmer
+      - name: Setup Wasmer
+        uses: cloud-cnc/setup-wasmer@v1
+
+      # Checkout 3D printer definitions
+      - name: Checkout 3D printer definitions
+        uses: actions/checkout@v2
+        with:
+          path: cura
+          repository: Ultimaker/Cura
+
+      # Download data
+      - name: Download data
+        run: |
+          mkdir data
+          wget https://github.com/CreativeTools/3DBenchy/raw/master/Single-part/3DBenchy.stl -O data/benchy.stl
+
+      # Build the Docker image
+      - name: Build the Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/build.dockerfile
+          push: false
+          tags: cloud-cnc/cura-engine
+
+      # Run the Docker image
+      - name: Run the Docker image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: cloud-cnc/cura-engine
+          options: -v ${{ github.workspace }}/build:/root/cura-engine/build
+          run: ./build.sh
+
+      # Move the build
+      - name: Move the build
+        run: sudo mv ./build/CuraEngine.wasm ./cura-engine.wasm
+
+      # Slice Benchy
+      - name: Slice Benchy
+        run: wasmer ./cura-engine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
+
+      # Verify output
+      - name: Verify output
+        working-directory: data
+        run: |
+          if [ "${{ hashFiles('./benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
+            exit 1
+          fi
+
+      # Cache the build
+      - name: Cache the build
+        uses: actions/cache@v2
+        with:
+          key: build-production-${{ hashFiles('./cura-engine.wasm') }}
+          path: ./cura-engine.wasm

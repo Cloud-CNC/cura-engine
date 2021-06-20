@@ -115,22 +115,11 @@ void CommandLine::sliceNext()
             {
                 if (argument.find("--next") == 0) //Starts with "--next".
                 {
-                    try
-                    {
-                        log("Loaded from disk in %5.3fs\n", FffProcessor::getInstance()->time_keeper.restart());
+                    log("Loaded from disk in %5.3fs\n", FffProcessor::getInstance()->time_keeper.restart());
 
-                        mesh_group_index++;
-                        FffProcessor::getInstance()->time_keeper.restart();
-                        last_settings = &slice.scene.mesh_groups[mesh_group_index].settings;
-                    }
-                    catch(...)
-                    {
-                        //Catch all exceptions.
-                        //This prevents the "something went wrong" dialogue on Windows to pop up on a thrown exception.
-                        //Only ClipperLib currently throws exceptions. And only in the case that it makes an internal error.
-                        logError("Unknown exception!\n");
-                        exit(1);
-                    }
+                    mesh_group_index++;
+                    FffProcessor::getInstance()->time_keeper.restart();
+                    last_settings = &slice.scene.mesh_groups[mesh_group_index].settings;
                 }
                 else
                 {
@@ -292,26 +281,11 @@ void CommandLine::sliceNext()
 
     arguments.clear(); //We've processed all arguments now.
 
-#ifndef DEBUG
-    try
-    {
-#endif //DEBUG
-        slice.scene.mesh_groups[mesh_group_index].finalize();
-        log("Loaded from disk in %5.3fs\n", FffProcessor::getInstance()->time_keeper.restart());
+    slice.scene.mesh_groups[mesh_group_index].finalize();
+    log("Loaded from disk in %5.3fs\n", FffProcessor::getInstance()->time_keeper.restart());
 
-        //Start slicing.
-        slice.compute();
-#ifndef DEBUG
-    }
-    catch(...)
-    {
-        //Catch all exceptions.
-        //This prevents the "something went wrong" dialogue on Windows to pop up on a thrown exception.
-        //Only ClipperLib currently throws exceptions. And only in the case that it makes an internal error.
-        logError("Unknown exception.\n");
-        exit(1);
-    }
-#endif //DEBUG
+    //Start slicing.
+    slice.compute();
 
     //Finalize the processor. This adds the end g-code and reports statistics.
     FffProcessor::getInstance()->finalize();
