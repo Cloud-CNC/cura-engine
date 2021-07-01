@@ -42,7 +42,7 @@ jobs:
 
       # Publish to WAPM
       - name: Publish to WAPM
-        uses: cloud-cnc/wapm-publish/dist/linux@v1
+        uses: cloud-cnc/wapm-publish@v1
         with:
           username: ${{ secrets.WAPM_USERNAME }}
           password: ${{ secrets.WAPM_PASSWORD }}
