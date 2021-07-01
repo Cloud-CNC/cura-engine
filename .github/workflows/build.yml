@@ -56,6 +56,13 @@ jobs:
           options: -v ${{ github.workspace }}/build:/root/cura-engine/build
           run: ./build.sh
 
+      # Cache the build
+      - name: Cache the build
+        uses: actions/cache@v2
+        with:
+          key: build-production-${{ hashFiles('./cura-engine.wasm') }}
+          path: ./cura-engine.wasm
+
       # Move the build
       - name: Move the build
         run: sudo mv ./build/CuraEngine.wasm ./cura-engine.wasm
@@ -70,10 +77,3 @@ jobs:
           if [ "${{ hashFiles('./data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
             exit 1
           fi
-
-      # Cache the build
-      - name: Cache the build
-        uses: actions/cache@v2
-        with:
-          key: build-production-${{ hashFiles('./cura-engine.wasm') }}
-          path: ./cura-engine.wasm
