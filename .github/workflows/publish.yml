@@ -30,7 +30,7 @@ jobs:
         with:
           key: never-exists
           restore-keys: build-production-
-          path: ./cura-engine.wasm
+          path: .
 
       - name: Debug
         run: ls .
