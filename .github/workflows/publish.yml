@@ -46,3 +46,4 @@ jobs:
         with:
           username: ${{ secrets.WAPM_USERNAME }}
           password: ${{ secrets.WAPM_PASSWORD }}
+          directory: package
