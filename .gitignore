@@ -1,3 +1,7 @@
+## WAPM
+package
+wapm_packages
+
 *.tar.bz2
 *.tar.gz
 *.7z
