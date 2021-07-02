@@ -24,7 +24,7 @@ jobs:
 
       # Setup Wasmer
       - name: Setup Wasmer
-        uses: cloud-cnc/setup-wasmer@v1
+        uses: wasmerio/setup-wasmer@v1
 
       # Checkout 3D printer definitions
       - name: Checkout 3D printer definitions

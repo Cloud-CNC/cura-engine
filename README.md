@@ -8,12 +8,15 @@
 If you're trying to embed Cura Engine into your web application, check out [Cura WASM](https://github.com/cloud-cnc/cura-wasm) instead (Which uses this package under the hood).
 
 ## Installation
+
 ```bash
 wapm install cloud-cnc-bot/cura-engine
 ```
+
 *Note: you'll need to install [WAPM](https://wapm.io) first.*
 
 ## Usage
+
 ```bash
 # Print help message
 wapm run cura-engine -- help
@@ -31,14 +34,19 @@ wapm run cura-engine --dir=./cura/resources/definitions --dir=. -- slice -j ./cu
 ### Building
 1. Check out the code
 2. Build the Docker container:
+
 ```bash
 docker build . -f docker/build.dockerfile -t cloud-cnc/cura-engine
 ```
+
 3. Run the Docker container:
+
 ```bash
 docker run -it --name cura-engine cloud-cnc/cura-engine
 ```
+
 4. Build Cura Engine:
+
 ```bash
 # This should be run within the container
 ./build.sh
@@ -62,6 +70,7 @@ Every Saturday at `00:00 UTC`, [sync.yml](.github/workflows/sync.yml) will creat
 
 ### Downstream Modifications
 You can view downstream modifications by running:
+
 ```bash
 # Add the upstream repository
 git remote add upstream https://github.com/ultimaker/curaengine.git
@@ -76,4 +85,4 @@ git diff upstream/master..origin/main
 ### Source
 The source of this fork is [github.com/ultimaker/curaengine](https://github.com/ultimaker/curaengine).
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine?ref=badge_large)

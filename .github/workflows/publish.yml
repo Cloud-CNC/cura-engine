@@ -20,7 +20,7 @@ jobs:
 
       # Setup Wasmer
       - name: Setup Wasmer
-        uses: cloud-cnc/setup-wasmer@v1
+        uses: wasmerio/setup-wasmer@v1
 
       # Build the Docker image
       - name: Build the Docker image
@@ -49,7 +49,7 @@ jobs:
 
       # Publish to WAPM
       - name: Publish to WAPM
-        uses: cloud-cnc/wapm-publish@v1
+        uses: wasmerio/wapm-publish@v1
         with:
           username: ${{ secrets.WAPM_USERNAME }}
           password: ${{ secrets.WAPM_PASSWORD }}
