@@ -34,10 +34,7 @@ jobs:
           git config pull.rebase false
           git remote add upstream https://github.com/ultimaker/curaengine.git
           git pull upstream master
-          git merge upstream/master
 
-      # Stage and commit changes
-      - name: Add and commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Synchronized with upstream
+      # Push changes
+      - name: Push changes
+        run: git push origin main
