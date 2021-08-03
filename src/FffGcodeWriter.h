@@ -5,16 +5,12 @@
 #define GCODE_WRITER_H
 
 #include <fstream>
+#include <optional>
 #include "FanSpeedLayerTime.h"
 #include "gcodeExport.h"
 #include "LayerPlanBuffer.h"
 #include "settings/PathConfigStorage.h" //For the MeshPathConfigs subclass.
 #include "utils/NoCopy.h"
-
-namespace std
-{
-template<typename T> class optional;
-}
 
 namespace cura 
 {

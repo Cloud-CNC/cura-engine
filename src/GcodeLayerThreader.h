@@ -5,9 +5,9 @@
 #include <queue> // priority_queue
 #include <functional> // function
 #include <chrono> // milliseconds
+#include <optional>
 
 #include "utils/logoutput.h"
-#include "utils/optional.h"
 #include "utils/Lock.h"
 
 namespace cura
@@ -184,7 +184,7 @@ void GcodeLayerThreader<T>::act()
             if (to_be_consumed_item_idx && consume_lock.test_lock())
             {
                 item_idx = *to_be_consumed_item_idx;
-                to_be_consumed_item_idx = nullptr;
+                to_be_consumed_item_idx = std::nullopt;
             }
         }
         if (item_idx >= 0)

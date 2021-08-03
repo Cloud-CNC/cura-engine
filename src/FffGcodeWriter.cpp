@@ -1829,7 +1829,7 @@ bool FffGcodeWriter::partitionInfillBySkinAbove(Polygons& infill_below_skin, Pol
 
     // need to take skin/infill overlap that was added in SkinInfillAreaComputation::generateInfill() into account
     const coord_t infill_skin_overlap = mesh.settings.get<coord_t>((part.insets.size() > 1) ? "wall_line_width_x" : "wall_line_width_0") / 2;
-    const Polygons infill_below_skin_overlap = infill_below_skin.offset(-(infill_skin_overlap + tiny_infill_offset));
+    const Polygons infill_below_skin_overlap = infill_below_skin.offset(-tiny_infill_offset);
 
     return ! infill_below_skin_overlap.empty() && ! infill_not_below_skin.empty();
 }
@@ -2123,13 +2123,11 @@ std::optional<Point> FffGcodeWriter::getSeamAvoidingLocation(const Polygons& fil
     // now go to whichever of those vertices that is closest to where we are now
     if (vSize2(pa.p() - last_position) < vSize2(pb.p() - last_position))
     {
-        bool bs_arg = true;
-        return std::optional<Point>(bs_arg, pa.p());
+        return std::optional<Point>(std::in_place, pa.p());
     }
     else
     {
-        bool bs_arg = true;
-        return std::optional<Point>(bs_arg, pb.p());
+        return std::optional<Point>(std::in_place, pb.p());
     }
 }
 

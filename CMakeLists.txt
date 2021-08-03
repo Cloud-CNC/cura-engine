@@ -1,7 +1,7 @@
 #Copyright (c) 2020 Ultimaker B.V.
 #CuraEngine is released under the terms of the AGPLv3 or higher.
 
-cmake_minimum_required(VERSION 3.6.0)
+cmake_minimum_required(VERSION 3.8.0)
 
 project(CuraEngine)
 
@@ -49,7 +49,7 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE_INIT}")
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 # Disable exceptions (Fix for https://github.com/WebAssembly/wasi-sdk#notable-limitations)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
