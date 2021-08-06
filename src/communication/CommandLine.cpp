@@ -21,6 +21,9 @@
 #include "../utils/getpath.h"
 #include "../utils/FMatrix4x3.h" //For the mesh_rotation_matrix setting.
 #include "../utils/logoutput.h"
+#include "../WasmHost.h"
+
+using namespace wasm_host;
 
 namespace cura
 {
@@ -80,6 +83,9 @@ void CommandLine::sendProgress(const float& progress) const
         return;
     }
     //TODO: Do we want to print a progress bar? We'd need a better solution to not have that progress bar be ruined by any logging.
+
+    //Emit progress
+    wasm_host::test_import();
 }
 
 void CommandLine::sliceNext()

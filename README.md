@@ -1,7 +1,7 @@
 # Cura Engine
 [![WAPM](https://wapm.io/package/cloud-cnc-bot/cura-engine/badge.svg)](https://wapm.io/package/cloud-cnc-bot/cura-engine)
-[![Build](https://img.shields.io/github/workflow/status/Cloud-CNC/cura-engine/Build?label=Build&style=flat-square)](https://github.com/Cloud-CNC/cura-engine/actions/workflows/build.yml)
-[![Publish](https://img.shields.io/github/workflow/status/Cloud-CNC/cura-engine/Publish?label=Publish&style=flat-square)](https://github.com/Cloud-CNC/cura-engine/actions/workflows/publish.yml)
+[![Build](https://img.shields.io/github/workflow/status/Cloud-CNC/cura-engine/Build?label=build&style=flat-square)](https://github.com/Cloud-CNC/cura-engine/actions/workflows/build.yml)
+[![Publish](https://img.shields.io/github/workflow/status/Cloud-CNC/cura-engine/Publish?label=publish&style=flat-square)](https://github.com/Cloud-CNC/cura-engine/actions/workflows/publish.yml)
 
 [Cura Engine](https://github.com/ultimaker/curaengine) for [Web Assembly (WASM)](https://webassembly.org).
 

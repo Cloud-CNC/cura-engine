@@ -51,9 +51,12 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Disable exceptions (Fix for https://github.com/WebAssembly/wasi-sdk#notable-limitations)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # Disable exceptions (Fix for https://github.com/WebAssembly/wasi-sdk#notable-limitations)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+
+    # Allow undefined symbols (See https://github.com/wasienv/wasienv/issues/9)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--allow-undefined")
 endif()
 
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
