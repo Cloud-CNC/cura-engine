@@ -54,8 +54,8 @@ void logAlways(const char* fmt, ...)
     va_start(args, fmt);
     #pragma omp critical
     {
-        vfprintf(stderr, fmt, args);
-        fflush(stderr);
+        vfprintf(stdout, fmt, args);
+        fflush(stdout);
     }
     va_end(args);
 }
@@ -69,8 +69,8 @@ void log(const char* fmt, ...)
     va_start(args, fmt);
     #pragma omp critical
     {
-        vfprintf(stderr, fmt, args);
-        fflush(stderr);
+        vfprintf(stdout, fmt, args);
+        fflush(stdout);
     }
     va_end(args);
 }
@@ -85,9 +85,9 @@ void logDebug(const char* fmt, ...)
     va_start(args, fmt);
     #pragma omp critical
     {
-        fprintf(stderr, "[DEBUG] ");
-        vfprintf(stderr, fmt, args);
-        fflush(stderr);
+        fprintf(stdout, "[DEBUG] ");
+        vfprintf(stdout, fmt, args);
+        fflush(stdout);
     }
     va_end(args);
 }
@@ -99,8 +99,8 @@ void logProgress(const char* type, int value, int maxValue, float percent)
 
     #pragma omp critical
     {
-        fprintf(stderr, "Progress:%s:%i:%i \t%f%%\n", type, value, maxValue, percent);
-        fflush(stderr);
+        fprintf(stdout, "Progress:%s:%i:%i \t%f%%\n", type, value, maxValue, percent);
+        fflush(stdout);
     }
 }
 

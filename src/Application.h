@@ -46,12 +46,12 @@ public:
     static Application& getInstance();
 
     /*!
-     * \brief Print to the stderr channel what the original call to the executable was.
+     * \brief Print to the stdout channel what the original call to the executable was.
      */
     void printCall() const;
 
     /*!
-     * \brief Print to the stderr channel how to use CuraEngine.
+     * \brief Print to the stdout channel how to use CuraEngine.
      */
     void printHelp() const;
 
@@ -79,7 +79,7 @@ protected:
 #endif //ARCUS
 
     /*!
-     * \brief Print the header and license to the stderr channel.
+     * \brief Print the header and license to the stdout channel.
      */
     void printLicense() const;
 
