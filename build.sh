@@ -20,9 +20,12 @@ mkdir $BUILD_DIR
 cd $BUILD_DIR
 echo -e "${GRAY}[INFO] Created build directory.${RESET}"
 
+# Get version number
+VERSION=$(sed -nE "s/version ?= ?['\"](.+)['\"]/\1/p" ../wapm.toml)
+
 # Generate makefile via Wasmer
 echo Generating makefile...
-wasimake cmake -DENABLE_ARCUS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF ..
+wasimake cmake -DENABLE_ARCUS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF -DCURA_ENGINE_VERSION=$VERSION ..
 exit_code=$?
 if [ $exit_code -ne 0 ]; then
   echo -e "${RED}[ERROR] Failed to generate makefiles!${RESET}"
@@ -38,7 +41,7 @@ if [ $exit_code -ne 0 ]; then
   echo -e "${RED}[ERROR] Failed to build Cura Engine!${RESET}"
   exit 1
 fi
-echo -e "${GRAY}[INFO] Built Cura Engine.${RESET}"
+echo -e "${GRAY}[INFO] Built Cura Engine V${VERSION}.${RESET}"
 
 # Log
 echo -e "${GREEN}[SUCCESS] All done!${RESET}"

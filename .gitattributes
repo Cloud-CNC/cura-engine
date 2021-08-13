@@ -1,8 +1,8 @@
 # Always use our version of the below files
 .gitattributes merge=ours
 .github merge=ours
+README.md merge=ours
 build.sh merge=ours
 docker merge=ours
-README.md merge=ours
-src/Host.cpp merge=ours
+src/WasmHost.h merge=ours
 wapm.toml merge=ours
