@@ -23,8 +23,6 @@
 #include "../utils/logoutput.h"
 #include "../WasmHost.h"
 
-using namespace wasm_host;
-
 namespace cura
 {
 
@@ -85,7 +83,7 @@ void CommandLine::sendProgress(const float& progress) const
     //TODO: Do we want to print a progress bar? We'd need a better solution to not have that progress bar be ruined by any logging.
 
     //Emit progress
-    wasm_host::test_import();
+    wasm_host::emitProgress(progress);
 }
 
 void CommandLine::sliceNext()

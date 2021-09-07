@@ -370,6 +370,11 @@ int GCodeExport::getExtruderNr() const
     return current_extruder;
 }
 
+AABB3D GCodeExport::getBoundingBox()
+{
+    return total_bounding_box;
+}
+
 void GCodeExport::setFilamentDiameter(const size_t extruder, const coord_t diameter)
 {
     const double r = INT2MM(diameter) / 2.0;

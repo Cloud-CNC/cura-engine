@@ -258,6 +258,8 @@ public:
     int getPositionZ() const;
 
     int getExtruderNr() const;
+
+    AABB3D getBoundingBox();
     
     void setFilamentDiameter(size_t extruder, const coord_t diameter);
     

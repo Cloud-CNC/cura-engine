@@ -20,6 +20,7 @@
 #include "progress/Progress.h"
 #include "utils/math.h"
 #include "utils/orderOptimizer.h"
+#include "WasmHost.h"
 
 #define OMP_MAX_ACTIVE_LAYERS_PROCESSED 30 // TODO: hardcoded-value for the max number of layers being in the pipeline while writing away and destroying layers in a multi-threaded context
 
@@ -3018,6 +3019,37 @@ void FffGcodeWriter::finalize()
         material_ids.emplace_back(scene.extruders[extruder_nr].settings.get<std::string>("material_guid"));
         extruder_is_used.push_back(gcode.getExtruderIsUsed(extruder_nr));
     }
+
+    //Get the GCODE flavor
+    std::string flavor = gcode.flavorToString(gcode.getFlavor());
+
+    //Get the filament used
+    uint64_t filament_used_array_size = static_cast<uint64_t>(filament_used.size());
+    double filament_used_array[filament_used_array_size];
+    std::copy(filament_used.begin(), filament_used.end(), filament_used_array);
+
+    //Get the bounding box
+    AABB3D bounding_box = gcode.getBoundingBox();
+
+    double bounding_box_array[6] = {
+        INT2MM(bounding_box.min.x),
+        INT2MM(bounding_box.min.y),
+        INT2MM(bounding_box.min.z),
+        INT2MM(bounding_box.max.x),
+        INT2MM(bounding_box.max.y),
+        INT2MM(bounding_box.max.z)
+    };
+
+    //Emit metadata
+    wasm_host::emitMetadata(
+        flavor,
+        print_time ? static_cast<int>(print_time) : 6666,
+        filament_used_array,
+        filament_used_array_size,
+        bounding_box_array,
+        6
+    );
+
     std::string prefix = gcode.getFileHeader(extruder_is_used, &print_time, filament_used, material_ids);
     if (!Application::getInstance().communication->isSequential())
     {
