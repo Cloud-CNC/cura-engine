@@ -560,7 +560,7 @@ void FffGcodeWriter::processStartingCode(const SliceDataStorage& storage, const 
         gcode.writeCode(prefix.c_str());
     }
 
-    gcode.writeComment("Generated with Cura_SteamEngine " VERSION);
+    gcode.writeComment("Generated with Cura_SteamEngine for WASM " VERSION);
 
     if (gcode.getFlavor() == EGCodeFlavor::GRIFFIN)
     {

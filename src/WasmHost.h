@@ -21,9 +21,9 @@ namespace wasm_host
       std::string flavor,
       int print_time,
       double material_usage[],
-      uint64_t material_usage_size,
+      uint32_t material_usage_size,
       double bounding_box[],
-      uint64_t bounding_box_size
+      uint32_t bounding_box_size
     );
 
   #ifdef __cplusplus
