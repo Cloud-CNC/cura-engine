@@ -43,7 +43,8 @@ jobs:
       - name: Add package assets
         run: |
           mkdir package
-          sudo mv ./build/CuraEngine.wasm ./package/cura-engine.wasm
+          sudo mv ./build/standalone.wasm ./package/standalone.wasm
+          sudo mv ./build/callbacks.wasm ./package/callbacks.wasm
           mv ./README.md ./package
           mv ./wapm.toml ./package
 

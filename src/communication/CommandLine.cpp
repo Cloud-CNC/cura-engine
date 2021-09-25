@@ -21,7 +21,10 @@
 #include "../utils/getpath.h"
 #include "../utils/FMatrix4x3.h" //For the mesh_rotation_matrix setting.
 #include "../utils/logoutput.h"
-#include "../WasmHost.h"
+
+#ifdef ENABLE_WASM_CALLBACKS
+#include "../WasmCallbacks.h"
+#endif
 
 namespace cura
 {
@@ -83,7 +86,9 @@ void CommandLine::sendProgress(const float& progress) const
     //TODO: Do we want to print a progress bar? We'd need a better solution to not have that progress bar be ruined by any logging.
 
     //Emit progress
-    wasm_host::emitProgress(progress);
+    #ifdef ENABLE_WASM_CALLBACKS
+    wasm_callbacks::emitProgress(progress);
+    #endif
 }
 
 void CommandLine::sliceNext()

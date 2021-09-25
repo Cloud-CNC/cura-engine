@@ -20,7 +20,10 @@
 #include "progress/Progress.h"
 #include "utils/math.h"
 #include "utils/orderOptimizer.h"
-#include "WasmHost.h"
+
+#ifdef ENABLE_WASM_CALLBACKS
+#include "WasmCallbacks.h"
+#endif
 
 #define OMP_MAX_ACTIVE_LAYERS_PROCESSED 30 // TODO: hardcoded-value for the max number of layers being in the pipeline while writing away and destroying layers in a multi-threaded context
 
@@ -3020,6 +3023,7 @@ void FffGcodeWriter::finalize()
         extruder_is_used.push_back(gcode.getExtruderIsUsed(extruder_nr));
     }
 
+    #ifdef ENABLE_WASM_CALLBACKS
     //Get the GCODE flavor
     std::string flavor = gcode.flavorToString(gcode.getFlavor());
 
@@ -3041,7 +3045,7 @@ void FffGcodeWriter::finalize()
     };
 
     //Emit metadata
-    wasm_host::emitMetadata(
+    wasm_callbacks::emitMetadata(
         flavor,
         print_time ? static_cast<int>(print_time) : 6666,
         filament_used_array,
@@ -3049,6 +3053,7 @@ void FffGcodeWriter::finalize()
         bounding_box_array,
         6
     );
+    #endif
 
     std::string prefix = gcode.getFileHeader(extruder_is_used, &print_time, filament_used, material_ids);
     if (!Application::getInstance().communication->isSequential())

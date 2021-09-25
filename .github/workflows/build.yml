@@ -58,7 +58,7 @@ jobs:
 
       # Slice Benchy
       - name: Slice Benchy
-        run: wasmer ./build/CuraEngine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -v -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
+        run: wasmer ./build/standalone.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -v -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
 
       # Verify output
       - name: Verify output

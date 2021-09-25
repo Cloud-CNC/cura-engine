@@ -2,7 +2,8 @@
 
 #include "utils/IntPoint.h"
 
-namespace wasm_host
+#ifdef ENABLE_WASM_CALLBACKS
+namespace wasm_callbacks
 {
   #ifdef __cplusplus
   extern "C"
@@ -29,4 +30,5 @@ namespace wasm_host
   #ifdef __cplusplus
   }
   #endif
-}//namespace wasm_host
+}//namespace wasm_callbacks
+#endif
