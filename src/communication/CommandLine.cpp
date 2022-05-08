@@ -23,7 +23,7 @@
 #include "../utils/logoutput.h"
 
 #ifdef ENABLE_WASM_CALLBACKS
-#include "../WasmCallbacks.h"
+#include "../Wasm.h"
 #endif
 
 namespace cura
@@ -87,7 +87,7 @@ void CommandLine::sendProgress(const float& progress) const
 
     //Emit progress
     #ifdef ENABLE_WASM_CALLBACKS
-    wasm_callbacks::emitProgress(progress);
+    wasm::emitProgress(progress);
     #endif
 }
 

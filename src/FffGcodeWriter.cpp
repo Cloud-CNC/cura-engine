@@ -22,7 +22,7 @@
 #include "utils/orderOptimizer.h"
 
 #ifdef ENABLE_WASM_CALLBACKS
-#include "WasmCallbacks.h"
+#include "Wasm.h"
 #endif
 
 #define OMP_MAX_ACTIVE_LAYERS_PROCESSED 30 // TODO: hardcoded-value for the max number of layers being in the pipeline while writing away and destroying layers in a multi-threaded context
@@ -3028,13 +3028,12 @@ void FffGcodeWriter::finalize()
     std::string flavor = gcode.flavorToString(gcode.getFlavor());
 
     //Get the filament used
-    uint64_t filament_used_array_size = static_cast<uint64_t>(filament_used.size());
+    size_t filament_used_array_size = filament_used.size();
     double filament_used_array[filament_used_array_size];
     std::copy(filament_used.begin(), filament_used.end(), filament_used_array);
 
     //Get the bounding box
     AABB3D bounding_box = gcode.getBoundingBox();
-
     double bounding_box_array[6] = {
         INT2MM(bounding_box.min.x),
         INT2MM(bounding_box.min.y),
@@ -3045,9 +3044,9 @@ void FffGcodeWriter::finalize()
     };
 
     //Emit metadata
-    wasm_callbacks::emitMetadata(
-        flavor,
-        print_time ? static_cast<int>(print_time) : 6666,
+    wasm::emitMetadata(
+        flavor.c_str(),
+        print_time ? static_cast<double>(print_time) : 6666,
         filament_used_array,
         filament_used_array_size,
         bounding_box_array,

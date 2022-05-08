@@ -4,5 +4,5 @@
 README.md merge=ours
 build.sh merge=ours
 docker merge=ours
-src/WasmCallbacks.h merge=ours
+src/Wasm.h merge=ours
 wapm.toml merge=ours
